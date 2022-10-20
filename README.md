@@ -26,7 +26,7 @@ UART的Verilog HDL实现，适用于各种FPGA/ASIC设计
 >sim: 仿真运行所在目录<br>
 >doc: 参考文档<br>
 
-进入到sim目录，其下面的comp.f文件是运行仿真时所需要编译的所有文件列表; sim.do是运行仿真时所要执行的命令(和具体仿真器相关)，这里只列举了一个简单的vlog编译命令。<br>
+具体的使用方法请参考doc目录下面的"使用说明.txt"文档。<br>
 仿真测试时，testcase是最顶层模块，其内部实例化harness模块，harness模块内部实例化两个相互通信的UART设备。如果需要更换测试用例，将comp.f中的testcase.v更换为相应的verilog文件即可，使用者也可以设计自己的测试用例。<br>
 
 #### 免责声明
