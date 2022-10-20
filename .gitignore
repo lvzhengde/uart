@@ -15,4 +15,5 @@
 *.pdb
 #忽略solution目录下的内容 
 solution/
+sim/
 
