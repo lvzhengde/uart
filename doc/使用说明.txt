@@ -1,0 +1,45 @@
+UART使用说明
+
+
+1. 设计目的
+本IP Core是作者为了在FPGA上验证自己的其它IP而设计，PC机可以通过UART和FPGA内部模块相互通信，方便控制和调试。
+读者可以在自己的设计中应用此IP，可能需要做一些修改适应，请自行斟酌决定。
+
+2. 设计参考
+设计参考了以下文档
+Xilinx Application Notes
+Title: UART Transmitter and Receiver Macros
+Author: Ken Chapman
+由于版权原因，没有在项目中收录此文档，请读者自行搜索获取。
+
+本IP设计比参考文档描述的功能更为全面，不受具体器件的限制，可用于各种FPGA/ASIC设计。
+
+3. 寄存器描述
+设计共有三个软件可访问的寄存器，在rtl/uart_regs.v文件描述
+地址           描述
+0x000          波特率配置寄存器
+0x001          配置奇偶校验，MSB先传
+0x002          内部接收FIFO, 发送FIFO状态
+
+4. 波特率寄存器设置
+baud_config寄存器的存放数值的计算公式如下
+baud_config寄存器数值 = 工作时钟频率(Hz) / (16 * 波特率), 四舎五入取最近的整数。
+比如对于125MHz时钟，115200波特率，baud_config寄存器设置的数值如下
+125,000,000 / (16 x 115200) = 67.82，取最近的整数则为68，这也是设计的缺省值。此数值精度保留在1%范围之内便是可行的，本例中精度为0.26%。
+
+5. 设计仿真
+以下内容使用的仿真工具是Icarus Verilog和gtkwave。
+具体请参考sim目录下的comp.f, Makefile, 和regress_test.sh三个文件。
+
+单独使用Makefile可针对各个测试用例进行仿真。
+(1) make testcase 或者testcase_baud_change等，可以在sim目录下生成一个uart.out可执行文件.
+(2) ./uart.out，可以对上一步所编译的具体测试用例跑仿真.
+(3) make vsim，用vvp跑仿真并生成波形文件。
+(4) make debug，则是用gtkwave打开make vsim生成的波形进行检查调试。
+
+regress_test.sh用来跑回归测试，在bash Shell运行敲入以下命令
+./regress_test.sh
+
+
+
+
