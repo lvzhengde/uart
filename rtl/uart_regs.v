@@ -45,7 +45,7 @@ module uart_regs(
     if(bus2ip_rd_ce_i == 1'b1 && bus2ip_addr_i[15:12] == BASEADDR) begin
       case(bus2ip_addr_i[11:0])
         12'h000:    ip2bus_data_o[15:0] = baud_config_o[15:0]; 
-        12'h001:    ip2bus_data_o[15:0] = {14'b0, parity_en_o, msb_first_o};
+        12'h001:    ip2bus_data_o[15:0] = {13'b0, parity_en_o, msb_first_o, start_polarity_o};
         
         12'h003:    ip2bus_data_o[15:0] = {7'b0, rx_buffer_data_present_i, rx_buffer_full_i, rx_buffer_hfull_i,
 	               rx_buffer_afull_i, rx_buffer_aempty_i,	tx_buffer_full_i, tx_buffer_hfull_i, 
