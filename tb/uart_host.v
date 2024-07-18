@@ -10,6 +10,7 @@ module uart_host(
   output     serial_out_o  
 ); 
   wire          clk;
+  wire          rst_n;
 
   reg           parity_en ; 
   reg           msb_first ; 
